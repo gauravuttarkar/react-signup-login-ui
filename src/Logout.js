@@ -2,7 +2,6 @@ import React from 'react';
 import Cookies from "js-cookie";
 const createHistory = require("history").createBrowserHistory;
 
-// import { useHistory }
 
 const Logout = () => {
   Cookies.remove("session");

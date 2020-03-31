@@ -5,7 +5,6 @@ import {setSessionCookie } from "./session";
 
 const createHistory = require("history").createBrowserHistory;
 
-// import { useHistory }
 
 const Login = () => {
 

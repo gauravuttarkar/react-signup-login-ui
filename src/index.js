@@ -40,7 +40,6 @@ class Page extends React.Component{
   render(){
   return (
       <Router>
-
         <div>
           <Route exact path="/" component={HomePage} />
           <Nav />
