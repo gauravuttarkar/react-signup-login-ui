@@ -6,3 +6,6 @@ Steps to run the code:
 4. 'firebase init'
 5. 'npm run deploy'
 6. 'npm start'
+
+During the command 'firebase init', do not overwrite the Database rules and index.html.
+When it asks for public directory please enter 'build'

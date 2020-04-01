@@ -7,16 +7,32 @@ const createHistory = require("history").createBrowserHistory;
 
 // Login component
 const Login = () => {
+
+  function userExistsCallback(userId, exists) {
+    if (!exists) {
+        alert('user ' + userId + ' does not exist!');
+    }
+  }
+
+  //Function to check if the user exists
+  function checkIfUserExists(email) {
+    var usersRef = fire.database().ref('users');
+    usersRef.orderByChild("email").equalTo(email).once("value", function(snapshot) {
+      var exists = (snapshot.val() !== null);
+      userExistsCallback(email, exists);
+    });
+  }
   // password hashing package
   var passwordHash = require('password-hash');
 // Async function to wait for the query to fetch from firebase
   async function callbackFunc () {
     var email = `${inputs.email}`;
+    checkIfUserExists(email);
     var password = `${inputs.password}`;
     var userRef = fire.database().ref('users');//User details stored in this path '/users'
     var hashedPassword,fullName, city, bloodGroup, birthDate;
     //Awaiting a promise until the query is resolved
-    //Query to fetch the user details matching the given email
+    //Query to fetch the user details matching the given email.
     await new Promise(resolve => userRef.orderByChild("email").equalTo(email).on("child_added", function(snapshot) {
       //Storing the response of the query in variables.
       fullName = snapshot.val().fullName;
