@@ -6,10 +6,15 @@ import './css/bootstrap.min.css';
 
 //Signup component
 const Signup = () => {
+
+  //function to create the user, takes in the parameter exists which tells if the email is already taken.
+  //Will create the user only if the email is unique
   function createUser(email, exists) {
+//If the email is already taken
     if (exists) {
         alert('Email ' + email + ' already exist!');
     }
+    //If email is unique then the user is created.
     else{
     var passwordHash = require('password-hash');
     var usersRef = fire.database().ref('users');
@@ -38,14 +43,12 @@ const Signup = () => {
       createUser(email, exists);
     });
   }
-// password hashing package
+
 
 //Callback function after the submission of form.
   async function callbackFunc  () {
-
     var email = `${inputs.email}`;
-    checkExisting(email);//Function to check if user already exists
-
+    checkExisting(email);//Function to check if email already exists
   }
 
   //customHook for forms
