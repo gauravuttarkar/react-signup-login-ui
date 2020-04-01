@@ -27,7 +27,7 @@ const Login = () => {
 // Async function to wait for the query to fetch from firebase
   async function callbackFunc () {
     var email = `${inputs.email}`;
-    checkIfUserExists(email);
+    checkIfUserExists(email); //Function to check if the user exists
     var password = `${inputs.password}`;
     var userRef = fire.database().ref('users');//User details stored in this path '/users'
     var hashedPassword,fullName, city, bloodGroup, birthDate;
@@ -89,7 +89,7 @@ const Login = () => {
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
-                                    <input className="form-control" type="password" name="password" onChange={handleInputChange} value={inputs.password}/>
+                                    <input className="form-control" type="password" name="password" onChange={handleInputChange} value={inputs.password} required/>
                                 </div>
                             </div>
 

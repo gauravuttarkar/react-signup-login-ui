@@ -68,20 +68,21 @@ const Signup = () => {
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
-                                    <input className="form-control" type="password" name="password" onChange={handleInputChange} value={inputs.password}/>
+                                    <input className="form-control" type="password" name="password" onChange={handleInputChange} value={inputs.password} required />
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="birthdate" class="col-md-4 col-form-label text-md-right">Birthdate</label>
                                 <div class="col-md-6">
-                                    <input type="date" max="2002-12-31" id="birthdate" name="birthDate" onChange={handleInputChange} value={inputs.birthDate}/>
+                                    <input type="date" max="2002-12-31" id="birthdate" name="birthDate" onChange={handleInputChange} value={inputs.birthDate} required />
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="bloodgroup" class="col-md-4 col-form-label text-md-right">Blood group</label>
                                 <div class="col-md-4">
-                                    <select name="bloodGroup" onChange={handleInputChange} value={inputs.bloodGroup}>
+                                    <select name="bloodGroup" onChange={handleInputChange} value={inputs.bloodGroup} required >
+                                      <option value="" selected disabled hidden>Choose here</option>
                                       <option value="A+">A+</option>
                                       <option value="A-">A-</option>
                                       <option value="B+">B+</option>
