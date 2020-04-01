@@ -1,4 +1,4 @@
-
+Set the Firebase configuration in the file fire.js.
 Steps to run the code:
 1. 'npm install'
 2. 'npm run build'
