@@ -6,17 +6,16 @@ import './css/bootstrap.min.css';
 
 //Signup component
 const Signup = () => {
-// password hashing package
-  var passwordHash = require('password-hash');
-//Callback function after the submission of form.
-  const callbackFunc = () => {
-
-    var userRef = fire.database().ref('users');//User details stored in this path '/users'
-    var password = `${inputs.password}`;
-    var email = `${inputs.email}`;
-    var hashedPassword = passwordHash.generate(password);
+  function createUser(email, exists) {
+    if (exists) {
+        alert('Email ' + email + ' already exist!');
+    }
+    else{
+    var passwordHash = require('password-hash');
+    var usersRef = fire.database().ref('users');
+    var hashedPassword = passwordHash.generate(`${inputs.password}`);
     //Pushing the values into firebase.
-    userRef.push (
+    usersRef.push (
       {
        fullName: `${inputs.fullName}`,
        email:  email,
@@ -25,11 +24,28 @@ const Signup = () => {
        birthDate: `${inputs.birthDate}`,
        city: `${inputs.city}`,
     });
-
-
     alert(`User Created!
        Name: ${inputs.fullName}
        Email: ${inputs.email}`);
+  }
+};
+
+  //Function to check if the user exists
+  async function checkExisting(email) {
+    var usersRef = fire.database().ref('users');
+    await usersRef.orderByChild("email").equalTo(email).once("value", function(snapshot) {
+      var exists = (snapshot.val() !== null);
+      createUser(email, exists);
+    });
+  }
+// password hashing package
+
+//Callback function after the submission of form.
+  async function callbackFunc  () {
+
+    var email = `${inputs.email}`;
+    checkExisting(email);//Function to check if user already exists
+
   }
 
   //customHook for forms
