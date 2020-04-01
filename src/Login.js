@@ -1,36 +1,46 @@
 import React from 'react';
-import useSignUpForm from './CustomHooks';
-import fire from './fire';
+import useForm from './CustomHooks';
+import fire from './fire'; //Firebase config is stored in fire.js
 import {setSessionCookie } from "./session";
 import {Link} from 'react-router-dom';
 const createHistory = require("history").createBrowserHistory;
 
-
+// Login component
 const Login = () => {
-
+  // password hashing package
   var passwordHash = require('password-hash');
-
+// Async function to wait for the query to fetch from firebase
   async function callbackFunc () {
     var email = `${inputs.email}`;
-    var userRef = fire.database().ref('users');
+    var password = `${inputs.password}`;
+    var userRef = fire.database().ref('users');//User details stored in this path '/users'
     var hashedPassword,fullName, city, bloodGroup, birthDate;
+    //Awaiting a promise until the query is resolved
+    //Query to fetch the user details matching the given email
     await new Promise(resolve => userRef.orderByChild("email").equalTo(email).on("child_added", function(snapshot) {
+      //Storing the response of the query in variables.
       fullName = snapshot.val().fullName;
       city = snapshot.val().city;
       bloodGroup = snapshot.val().bloodGroup;
       birthDate = snapshot.val().birthDate;
       hashedPassword = snapshot.val().password;
-      var password = `${inputs.password}`;
+      //verifying the fetched hashedPassword with the given password.
       var result = passwordHash.verify(password, hashedPassword);
+
       let history = createHistory();
+      //if password is correct, login
       if (result){
+        //Setting cookies using the user details
          setSessionCookie({ email,fullName, bloodGroup, birthDate,city });
+        //Redirecting to the profile
          history.push("/profile");
          let pathUrl = window.location.href;
          window.location.href = pathUrl;
       }
       else{
+        //If the password is wrong.
         alert(`Wrong password`);
+        //Redirect to login package
         history.push("/login");
         let pathUrl = window.location.href;
         window.location.href = pathUrl;
@@ -40,8 +50,8 @@ const Login = () => {
 
   };
 
-
-  const {inputs, handleInputChange, handleSubmit} = useSignUpForm({email: '', password: ''},
+  //Using customHook useSignUpForm
+  const {inputs, handleInputChange, handleSubmit} = useForm({email: '', password: ''},
                                                                 callbackFunc);
   return (
     <div class="login-form">

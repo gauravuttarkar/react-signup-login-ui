@@ -136,16 +136,6 @@ class Page extends React.Component{
         </div>
       </div>
     </div></Router>
-      // <Router>
-      //   <div>
-      //     <Route exact path="/" component={HomePage} />
-      //     <Nav />
-      //     <Route path="/login" component={LoginPage} />
-      //     <Route path="/signup" component={SignupPage} />
-      //     <Route path="/profile" component={ProfilePage} />
-      //     <Route path="/logout" component={LogoutPage} />
-      //   </div>
-      // </Router>
     );
   }
 }

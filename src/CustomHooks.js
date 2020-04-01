@@ -1,6 +1,6 @@
 import  {useState} from 'react';
 
-const useSignUpForm = (initialValues, callback) => {
+const useForm = (initialValues, callback) => {
   const [inputs, setInputs] = useState(initialValues);
   const handleSubmit = (event) => {
     if (event) {
@@ -20,4 +20,4 @@ const useSignUpForm = (initialValues, callback) => {
 }
 
 
-export default useSignUpForm;
+export default useForm;

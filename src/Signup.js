@@ -1,21 +1,21 @@
 import React from 'react';
-import useSignUpForm from './CustomHooks';
+import useForm from './CustomHooks';
 import fire from './fire';
 import './css/bootstrap.min.css';
 //import './vendor/datepicker/daterangepicker.js';
 
-
+//Signup component
 const Signup = () => {
-
+// password hashing package
   var passwordHash = require('password-hash');
-
-
+//Callback function after the submission of form.
   const callbackFunc = () => {
-    var userRef = fire.database().ref('users');
+
+    var userRef = fire.database().ref('users');//User details stored in this path '/users'
     var password = `${inputs.password}`;
     var email = `${inputs.email}`;
-    console.log(password);
     var hashedPassword = passwordHash.generate(password);
+    //Pushing the values into firebase.
     userRef.push (
       {
        fullName: `${inputs.fullName}`,
@@ -31,7 +31,9 @@ const Signup = () => {
        Name: ${inputs.fullName}
        Email: ${inputs.email}`);
   }
-  const {inputs, handleInputChange, handleSubmit} = useSignUpForm({fullName:'', email: '', password:'',bloodGroup:'',city:'',birthDate:''},
+
+  //customHook for forms
+  const {inputs, handleInputChange, handleSubmit} = useForm({fullName:'', email: '', password:'',bloodGroup:'',city:'',birthDate:''},
                                                                 callbackFunc);
   return (
     <div class="login-form">
