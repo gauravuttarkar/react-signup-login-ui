@@ -1,4 +1,11 @@
+NodeJS version: 12.16
+
 Set the Firebase configuration in the file fire.js.
+Steps to install firebase:
+1. 'npm install -g firebase-tools'
+2. 'firebase login'
+Please make sure the Google account you use for Login has been provided the necessary permissions.
+
 Steps to run the code:
 1. 'npm install'
 2. 'npm run build'
